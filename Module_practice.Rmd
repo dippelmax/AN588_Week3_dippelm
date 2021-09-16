@@ -9,9 +9,11 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Module 6
 
+## Challenge 1
 
-# Challenge 1
+### curl not working I am concerned
 
 d <- read.csv("CountryData.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
 head(d)
@@ -27,7 +29,7 @@ summary(new)
 mean(new$population, na.rm = TRUE)
 mean(new$area, na.rm = TRUE)
 
-# Challenge 2
+## Challenge 2
 par(mfrow = c(2, 3))
 boxplot(d$population)
 boxplot(log(d$population))
@@ -36,10 +38,10 @@ boxplot(log(d$area))
 barplot(d$population)
 barplot(d$area)
 
-# Warning message:
-# In x[floor(d)] + x[ceiling(d)] : NAs produced by integer overflow
+### Warning message:
+### In x[floor(d)] + x[ceiling(d)] : NAs produced by integer overflow
 
-# Challenge 3
+## Challenge 3
 
 par(mfrow=c(1,2)) # gives us two panels
 attach(d)
@@ -53,7 +55,105 @@ lines(density(log(population), na.rm =TRUE), col = "green")
 
 detach(d)
 
-# Challenge 4
+## Challenge 4
 
 sort(table(d$govt_form),decreasing=TRUE)
+
+## Challenge 5
+
+### curl not working I am concerned
+
+d <- read.csv("KamilarAndCooperData.csv", header = TRUE, stringsAsFactors = FALSE)
+attach(d)
+head(d)
+summary(d)
+boxplot(log(Body_mass_female_mean)~Family,d)
+detach(d)
+library(ggplot2)
+p <- ggplot(data=d, aes(x=Family, y=log(Body_mass_female_mean)))
+p <- p + geom_boxplot()
+p <- p + theme(axis.text.x=element_text(angle=90))
+p <- p + ylab("log(Female Body Mass)")
+p
+
+## Challenge 6
+
+attach(d)
+par(mfrow=c(1,2))
+plot(x = Body_mass_female_mean, y = Brain_Size_Female_Mean)
+plot(x = log(Body_mass_female_mean), y = log(Brain_Size_Female_Mean))
+
+detach(d)
+
+p <- ggplot(data=d, aes(x=log(Body_mass_female_mean),
+                        y=log(Brain_Size_Female_Mean),
+                        color = factor(Family)
+                        )) # first, we build a plot object and color points by Family
+p <- p + xlab("log(Female Body Mass)") + ylab("log(Female Brain Size)") # then we modify the axis labels
+p <- p + geom_point() # then we make a scatterplot
+p <- p + theme(legend.position="bottom", legend.title=element_blank()) # then we modify the legend
+p # and, finally, we plot the object
+
+p <- p + facet_wrap(~ Family, ncol=4)
+p <- p + theme(legend.position="none")
+p
+
+p <- p + geom_smooth(method="lm", fullrange=TRUE)
+p
+
+## Challenge 7
+
+p <- ggplot(data=d, aes(x=log(Body_mass_female_mean),
+                        y=log(MaxLongevity_m)
+                        ))
+p <- p + geom_point()
+p <- p + geom_smooth(method="lm")
+p
+
+aggregate(d$Body_mass_female_mean~d$Family, FUN = "mean", na.rm = TRUE)
+
+aggregate(x = d["Body_mass_female_mean"], by = d["Family"], FUN = "mean", na.rm = TRUE)
+
+library(dplyr)
+
+s <- filter(d, Family == "Hominidae" & Mass_Dimorphism > 2)
+head(s) # filtering a data frame for certain rows...
+
+
+s <- arrange(d, Family, Genus, Body_mass_male_mean) # rearranging a data frame...
+head(s)
+
+s <- select(d, Family, Genus, Body_mass_male_mean) # selecting specific columns...
+head(s)
+
+s <- rename(d,"Female_Mass" = Body_mass_female_mean)
+head(s$Female_Mass) # renaming columns...
+
+s <- mutate(d, "Binomial" = paste(Genus, Species, sep=" "))
+head(s$Binomial) # and adding new columns...
+
+s <- summarise(d,
+               avgF = mean(Body_mass_female_mean, na.rm=TRUE),
+               avgM = mean(Body_mass_male_mean, na.rm=TRUE))
+s
+
+byFamily <- group_by(d, Family)
+byFamily
+
+s <- summarise(byFamily,
+               avgF = mean(Body_mass_female_mean, na.rm=TRUE),
+               avgM = mean(Body_mass_male_mean, na.rm=TRUE))
+s
+
+## Challenge 8
+
+
+
+
+
+
+
+
+
+
 
