@@ -36,6 +36,8 @@ boxplot(log(d$area))
 barplot(d$population)
 barplot(d$area)
 
+# Warning message:
+# In x[floor(d)] + x[ceiling(d)] : NAs produced by integer overflow
 
 # Challenge 3
 
@@ -49,11 +51,9 @@ hist(log(population), freq=FALSE, col = "white", main = "My Plot with Mean and D
 abline(v=mean(log(population),na.rm=TRUE), col= "blue")
 lines(density(log(population), na.rm =TRUE), col = "green")
 
-
-# Warning message:
-# In x[floor(d)] + x[ceiling(d)] : NAs produced by integer overflow
+detach(d)
 
 # Challenge 4
 
-
+sort(table(d$govt_form),decreasing=TRUE)
 
