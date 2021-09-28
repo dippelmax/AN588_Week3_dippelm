@@ -16,7 +16,8 @@ library(ggplot2)
 1 - ppois(q = 8, lambda = 15)
 
 ```
-
+#challange 1 - cece comments
+#looks good, we got the same answer. Instead of doing "1 - ppois" I did "lower = false", but we got the same result!
 
 ```{r}
 
@@ -24,7 +25,8 @@ library(ggplot2)
 ppois(q = 0, lambda = 15)
 
 ```
-
+#challenge 2 - cece comments
+# looks good, I did the same exact thing
 
 ```{r}
 
@@ -32,7 +34,8 @@ ppois(q = 0, lambda = 15)
 dpois(x = 3, lambda = 15)
 
 ```
-
+#challenge 3 - cece comments
+# again, I did the same thing, everything looks good
 
 ```{r}
 
@@ -43,7 +46,8 @@ probset <- dpois(x = x, lambda = l)
 barplot(probset, names.arg = x, space = 0, xlab = "x", ylab = "Pr(X = x)", main = "Probability Mass Function")
 
 ```
-
+#challenge 4 - cece comments
+#Did the same thing, got the same result, lookin good
 
 ```{r}
 # Simulate 104 results from this distribution (i.e., 2 years of Saturday monitoring sessions).
@@ -66,7 +70,8 @@ hist(two.year.Sat, probability = TRUE)
 # Cannot figure out how to get results 
 # dpois() outputs probabilities not number of calls
 ```
-
+#challenge 5 - cece comments
+# ok so I used rpois here instead of dpois because rpois can "simulate numbers for a given poisons distribution". I also did not use a function, because I dont *think* you have to for rpois. you can instead make a data frame with data = rpois (104,15) (104 for the amount of simulated numbers you want and 15 for lambda), and named it "monkeys", then ran a histogram with hist(monkeys$data)
 
 ```{r}
 
@@ -78,7 +83,8 @@ hist(Titi.plot)
 # Cannot figure out xlim
 # Also this is a way to do what was asked but I am not using code from the last question
 ```
-
+#challenge 5 pt 2 - cece comments
+#ok so i think the rpois stuff that you did here is right for simulating 104 results. the histogram looks very similar to mine but the xlim isn't set as you said. to set xlim do "xlim = c(0,30)," then you'd be all good. 
 
 
 
