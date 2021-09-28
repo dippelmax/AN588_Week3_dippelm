@@ -1,0 +1,90 @@
+---
+title: "AN588_Week3_dippelm"
+author: "Max Dippel"
+date: "9/21/2021"
+output: html_document
+---
+
+#Every Saturday morning, at the same time, a primatologist goes and sits in the forest to listen for titi monkey calls, counting the number of calls they hear in a 2 hour window from 5am to 7am. Based on previous knowledge, she believes that the mean number of calls she will hear in that time is exactly 15. Let X represent the appropriate Poisson random variable of the number of calls heard in each monitoring session.
+
+library(manipulate)
+library(ggplot2)
+
+```{r}
+
+# What is the probability that she will hear more than 8 calls during any given session?
+1 - ppois(q = 8, lambda = 15)
+
+```
+
+
+```{r}
+
+# What is the probability that she will hear no calls in a session?
+ppois(q = 0, lambda = 15)
+
+```
+
+
+```{r}
+
+# What is the probability that she will hear exactly 3 calls in a session?
+dpois(x = 3, lambda = 15)
+
+```
+
+
+```{r}
+
+# Plot the relevant Poisson mass function over the values in range 0 ≤ x ≤ 30.
+x <- 0:30
+l <- 15
+probset <- dpois(x = x, lambda = l)
+barplot(probset, names.arg = x, space = 0, xlab = "x", ylab = "Pr(X = x)", main = "Probability Mass Function")
+
+```
+
+
+```{r}
+# Simulate 104 results from this distribution (i.e., 2 years of Saturday monitoring sessions).
+n.Sat <- 104
+Sat <- function(x) {
+    dpois(x = 0:30, lambda = 15)
+}
+
+two.year.Sat <- Sat(n.Sat)
+hist(two.year.Sat, probability = TRUE)
+
+n.Sat <- 104
+Sat <- function(x) {
+    rpois(x = 104, lambda = 15)
+}
+two.year.Sat <- Sat(n.Sat)
+hist(two.year.Sat, probability = TRUE)
+
+
+# Cannot figure out how to get results 
+# dpois() outputs probabilities not number of calls
+```
+
+
+```{r}
+
+# Plot the simulated results using hist() and use xlim() to set the horizontal limits to be from 0 to 30. How does your histogram compare to the shape of the probability mass function you plotted above?
+
+Titi.plot <- rpois(n = 104, lambda = 15)
+hist(Titi.plot) 
+?xlim
+# Cannot figure out xlim
+# Also this is a way to do what was asked but I am not using code from the last question
+```
+
+
+
+
+
+
+
+
+
+
